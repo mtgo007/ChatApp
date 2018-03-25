@@ -1,0 +1,46 @@
+<% include partials/header %>
+<nav class="nav-wrapper">
+    <a href="#" class="brand-logo">Chat</a>
+</nav>
+<div class="container">
+    <h6>Bem-Vindo <%= email %></h6>
+    <a href="/">Sair</a>
+    <div id="chat" style="width:800px;height:100%;margin:auto"></div>
+    <input type="text" style="width:90%" id="text" onSubmit="envia"><i id="btn" style="border-radius:100px;padding:5px" class="material-icons waves-effect waves-light btn">send</i>
+</div>
+
+<script>
+    let input = document.getElementById('text');
+    let btn = document.getElementById('btn');
+    let chat = document.getElementById('chat');
+
+    var socket = io.connect('http://127.0.0.1:4000');
+    socket.on('messages', function (data) {
+        // console.log(data);
+        data.messages.forEach(element => {
+            var p = document.createElement("p");
+            p.innerHTML = element.email +" : "+element.mensagem;
+            chat.appendChild(p);
+        });
+    });
+    socket.on('newMensage', function (data) {
+        console.log(data);
+        
+            var p = document.createElement("p");
+            p.innerHTML = data.email +" : "+data.mensagem;
+            chat.appendChild(p);
+        
+    });
+
+    btn.addEventListener('click', function(){
+        // console.log(input.value);
+        let email = "<%= email %>";
+        let mensagem = input.value;
+        input.value = "";
+        socket.emit('input',{email: email, mensagem:mensagem});
+    })
+
+    
+</script>
+
+<% include partials/footer %>

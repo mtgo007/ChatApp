@@ -1,0 +1,50 @@
+<% include partials/header %>
+<nav>
+    <div class="nav-wrapper">
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a class="waves-effect waves-light btn modal-trigger"  href="#singin">Sing In</a></li>
+        <li><a class="waves-effect waves-light btn modal-trigger" href="#singup">Sing Up</a></li>
+        <li><a class="waves-effect waves-light btn modal-trigger">About</a></li>
+      </ul>
+    </div>
+</nav>
+<!-- Modals-->
+<div id="singin" class="modal">
+    <div class="modal-content">
+    <form method="POST" action="/users/sing">
+      <h4>Login</h4>
+      <p>Email:</p>
+      <input type="email" name="email">
+      <p>Senha:</p>
+      <input type="password" name="senha">
+      <input class="waves-effect waves-light btn" type="submit" value="Log in">
+    </form>
+  </div>
+</div>
+
+<div id="singup" class="modal">
+    <div class="modal-content">
+    <form method="POST" action="/users/add">
+      <h4>Login</h4>
+      <p>Email:</p>
+      <input type="email" name="email">
+      <p>Senha:</p>
+      <input type="password" name="senha">
+      <p>Confirmação de Senha:</p>
+      <input type="password" name="confirmasenha">
+      <input class="waves-effect waves-light btn" type="submit" value="Log in">
+    </form>
+  </div>
+</div>
+
+<div class="container">
+    <h1>Realize o Login Para Entrar no Chat</h1>
+    
+</div>
+<script>
+    var elem = document.querySelector('#singin');
+    var instance = M.Modal.init(elem, {});
+    var elem = document.querySelector('#singup');
+    var instance = M.Modal.init(elem, {});
+</script>
+<% include partials/footer %>
