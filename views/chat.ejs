@@ -16,20 +16,36 @@
 
     var socket = io.connect('http://127.0.0.1:4000');
     socket.on('messages', function (data) {
-        // console.log(data);
+        console.log(data);
+        let email = "<%= email %>";
+        
         data.messages.forEach(element => {
+            console.log(email+" : "+element.email);
             var p = document.createElement("p");
-            p.innerHTML = element.email +" : "+element.mensagem;
+            var div = document.createElement("div");
+            if(!email.localeCompare(element.email)){
+                p.innerHTML = "Você : "+element.mensagem;
+                p.setAttribute("class", "proprio");
+            } else{
+                p.innerHTML =element.email +" : "+ element.mensagem;
+                p.setAttribute("class", "outro");
+            }
             chat.appendChild(p);
         });
     });
     socket.on('newMensage', function (data) {
         console.log(data);
-        
+            let email = "<%= email %>";
             var p = document.createElement("p");
             p.innerHTML = data.email +" : "+data.mensagem;
+            if(!email.localeCompare(data.email)){
+                p.innerHTML = "Você : "+data.mensagem;
+                p.setAttribute("class", "proprio");
+            } else{
+                p.innerHTML =data.email +" : "+ data.mensagem;
+                p.setAttribute("class", "outro");
+            }
             chat.appendChild(p);
-        
     });
 
     btn.addEventListener('click', function(){
